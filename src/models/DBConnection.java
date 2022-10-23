@@ -3,7 +3,6 @@ package models;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 public class DBConnection {
     private final String dbName;
@@ -12,8 +11,8 @@ public class DBConnection {
 
     public DBConnection(String dbName) {
         this.dbName = dbName;
-        this.user = System.getenv("DBuser");
-        this.password = System.getenv("DBpassword");
+        this.user = System.getenv("dbUser");
+        this.password = System.getenv("dbPassword");
     }
 
     public DBConnection(String dbName, String user, String password) {
