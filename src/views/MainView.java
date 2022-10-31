@@ -50,6 +50,7 @@ public class MainView extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(102, 102, 102));
         setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        setMinimumSize(new java.awt.Dimension(947, 523));
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -255,7 +256,7 @@ public class MainView extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(440, Short.MAX_VALUE))
+                .addContainerGap(670, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
