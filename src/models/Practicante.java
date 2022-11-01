@@ -46,20 +46,9 @@ public class Practicante {
         this.peso = (float)data.get("peso");
     }
 
-    public static ArrayList<Practicante> retrieveFromDb(DBConnection db, String condition) {
-        ArrayList<Practicante> practicantes = new ArrayList<>();
-        String queryP = condition == null
-            ? "SELECT * FROM PRACTICANTES"
-                : "SELECT * FROM PRACTICANTES WHERE " + condition;
-        ArrayList<HashMap<String, Object>> resP = db.executeQuery(queryP);
-        String queryG = "SELECT * FROM GRADOS WHERE cedula_practicante=";
-        String queryE = "SELECT * FROM EXAMENES WHERE cedula_practicante=";
-        for (HashMap<String, Object> p : resP) {
-            p.put("grados", db.executeQuery(queryG + p.get("cedula")));
-            p.put("examenes", db.executeQuery(queryE + p.get("cedula")));
-            practicantes.add(new Practicante(p));
-        }
-        return practicantes;
+    public int saveInDB(DBConnection db) {
+        String insertP = "INSERT INTO PRACTICANTES (" + cedula;
+        return db.executeSQL(insertP);
     }
 
     public void updateInDB(DBConnection db) {
