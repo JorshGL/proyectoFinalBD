@@ -10,10 +10,9 @@ public class TestDBMethods {
     public TestDBMethods(){}
 
     public static void main(String[] args) {
-        String test = "test1";
-        StringBuffer testsb = new StringBuffer(test);
-        testsb.deleteCharAt(testsb.length()-1);
-        test = new String(testsb);
+        ArrayList<String> test = new ArrayList<String>() {{
+            add("1");
+        }};
         System.out.print(test);
     }
 }

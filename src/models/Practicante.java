@@ -53,7 +53,7 @@ public final class Practicante {
         insertG = new String(sbG);
         String insertE = "INSERT INTO EXAMENES ";
         for (Examen e : examenes) {
-            String values = String.format("(%s, %s, %s, %s, %s, %s, %s)",
+            String values = String.format("(%s, %s, %s, %s, %s, %s, %s),",
                     cedula, e.getFechaHora(), e.getPuntajeCombate(), e.getPuntajeFiguras(),
                     e.getIndicador(), e.getGradoPresentado(), e.getNumeroGradoPresentado()
             );
