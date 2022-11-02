@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DBConnection {
+public final class DBConnection {
     private final String dbName;
     private final String user;
     private final String pwd;
@@ -54,7 +54,7 @@ public class DBConnection {
         return 0;
     }
 
-    public ArrayList<HashMap<String, Object>> executeQuery(String query) {
+    public ArrayList<HashMap<String, Object>> mapFromQuery(String query) {
         ArrayList<HashMap<String, Object>> arr = new ArrayList<>();
         try (Connection connection = connect()) {
             Statement stm = connection.createStatement();

@@ -1,13 +1,13 @@
 package models;
 
 import DatabaseConnection.DBConnection;
+import records.Examen;
 import records.Grado;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class Practicante {
+public final class Practicante {
     private final String cedula;
     private final String nombres;
     private final String apellidos;
@@ -33,22 +33,36 @@ public class Practicante {
         this.peso = peso;
     }
 
-    public Practicante(HashMap<String, Object> data) {
-        this.cedula = (String)data.get("cedula");
-        this.nombres = (String)data.get("nombres");
-        this.apellidos = (String)data.get("apellidos");
-        this.fechaNacimiento = (LocalDate)data.get("fecha_nacimiento");
-        this.nacionalidad = (String)data.get("nacionalidad");
-        this.grados.addAll((ArrayList<Grado>)data.get("grados"));
-        this.examenes.addAll((ArrayList<Examen>)data.get("examen"));
-        this.modalidadEscuela = (String)data.get("modalidadEscuela");
-        this.fechaIngresoLiga = (LocalDate)data.get("fechaIngresoLiga");
-        this.peso = (float)data.get("peso");
-    }
-
-    public int saveInDB(DBConnection db) {
-        String insertP = "INSERT INTO PRACTICANTES (" + cedula;
-        return db.executeSQL(insertP);
+    /**Guarda el practicante, sus grados y examenes en la base de datos
+     *@return {#Participantes insertados, #grados insertados, #examenes insertados}
+     * */
+    public int[] saveInDB(DBConnection db) {
+        String insertP = String.format(
+                "INSERT INTO PRACTICANTES (%s, %s, %s, %s, %s, %s, %s, %s)",
+                cedula, nombres, apellidos, fechaNacimiento, modalidadEscuela,
+                nacionalidad, fechaIngresoLiga, peso
+        );
+        String insertG = "INSERT INTO GRADOS ";
+        for (Grado g : grados) {
+            String values = String.format("(%s, %s, %s, %s),",
+                    cedula, g.getFechaHoraExamen(), g.getModalidad(), g.getDescripcion());
+            insertG += values;
+        }
+        StringBuffer sbG = new StringBuffer(insertG);
+        sbG.deleteCharAt(sbG.length()-1);
+        insertG = new String(sbG);
+        String insertE = "INSERT INTO EXAMENES ";
+        for (Examen e : examenes) {
+            String values = String.format("(%s, %s, %s, %s, %s, %s, %s)",
+                    cedula, e.getFechaHora(), e.getPuntajeCombate(), e.getPuntajeFiguras(),
+                    e.getIndicador(), e.getGradoPresentado(), e.getNumeroGradoPresentado()
+            );
+            insertE += values;
+        }
+        StringBuffer sbE = new StringBuffer(insertE);
+        sbE.deleteCharAt(sbE.length()-1);
+        insertE = new String(sbE);
+        return new int[] {db.executeSQL(insertP), db.executeSQL(insertG), db.executeSQL(insertE)};
     }
 
     public void updateInDB(DBConnection db) {
